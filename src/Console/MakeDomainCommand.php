@@ -15,11 +15,11 @@ class MakeDomainCommand extends Command
     public function handle(): int
     {
         try {
-            $domain = $this->argument('name');
+            $domainName = $this->argument('name');
 
             $domainsDir = $this->getDomainsDir();
 
-            $this->makeNewDomainDir($domain, $domainsDir);
+            $this->makeNewDomainDir($domainName, $domainsDir);
 
             $this->info($domainsDir);
             return 0;
