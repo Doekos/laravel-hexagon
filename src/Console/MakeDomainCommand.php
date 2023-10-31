@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class MakeDomainCommand extends Command
 {
-    protected $name = 'make:domain';
+    protected $name = 'hexagon:domain';
     protected $description = 'Command description';
     protected function getStub(){}
 
@@ -107,7 +107,7 @@ class MakeDomainCommand extends Command
 
         $routesOptions = $this->getRoutesOptions($domain);
 
-        $this->call('make:route', $routesOptions);
+        $this->call('hexagon:route', $routesOptions);
     }
 
     protected function getRoutesOptions(string $domain): array

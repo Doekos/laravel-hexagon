@@ -6,7 +6,9 @@ use Illuminate\Console\GeneratorCommand;
 
 class MakeRouteCommand extends GeneratorCommand
 {
-
+    protected $name = 'hexagon:routes';
+    protected $description = 'Create a new routes for domain';
+    protected $type = 'Route';
     protected function getStub()
     {
         $stub = "/stubs/routes.stub";
