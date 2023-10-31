@@ -8,14 +8,14 @@ use Illuminate\Support\Str;
 
 class MakeDomainCommand extends Command
 {
-    protected $signature = 'hexagon:domain {name}';
+    protected $signature = 'hexagon:domain {domain}';
     protected $description = 'Creates a domain directory with subdirectories and files';
     protected function getStub(){}
 
     public function handle(): int
     {
         try {
-            $domainName = $this->argument('name');
+            $domainName = $this->argument('domain');
 
             $domainsDir = $this->getDomainsDir();
 
