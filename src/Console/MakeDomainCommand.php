@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class MakeDomainCommand extends Command
 {
-    protected $name = 'hexagon:domain {name}';
+    protected $signature = 'hexagon:domain {name}';
     protected $description = 'Creates a domain directory with subdirectories and files';
     protected function getStub(){}
 
