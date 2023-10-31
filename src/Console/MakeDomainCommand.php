@@ -93,28 +93,6 @@ class MakeDomainCommand extends Command
             mkdir($newFolder, 0777, true);
         }
 
-        $this->createModel();
-
         return true;
-    }
-
-    /**
-     * @throws Exception
-     */
-    protected function createModel()
-    {
-        $domain = Str::studly(class_basename($this->argument('domain')));
-
-        $routesOptions = $this->getRoutesOptions($domain);
-
-        $this->call('hexagon:route', $routesOptions);
-    }
-
-    protected function getRoutesOptions(string $domain): array
-    {
-        return [
-            'name' => $domain,
-            'domain' => $domain,
-        ];
     }
 }
