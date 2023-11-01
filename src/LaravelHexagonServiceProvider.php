@@ -2,6 +2,7 @@
 
 namespace Doekos\LaravelHexagon;
 
+use Doekos\LaravelHexagon\Console\MakeModelCommand;
 use Illuminate\Support\ServiceProvider;
 use Doekos\LaravelHexagon\Console\MakeDomainCommand;
 
@@ -27,6 +28,7 @@ class LaravelHexagonServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 MakeDomainCommand::class,
+                MakeModelCommand::class,
             ]);
         }
 

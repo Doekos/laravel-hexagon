@@ -4,7 +4,7 @@ namespace Doekos\LaravelHexagon\Console;
 
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
+use Symfony\Component\Console\Input\InputOption;
 
 class MakeDomainCommand extends Command
 {
@@ -21,7 +21,14 @@ class MakeDomainCommand extends Command
 
             $this->makeNewDomainDir($domainName, $domainsDir);
 
-            $this->info($domainsDir);
+            if ($this->option('model')) {
+                $this->call('hexagon:model', [
+                    'name' => $domainName,
+                    '--domain' => $domainName,
+                ]);
+            }
+
+            $this->info('Domain '. $domainName . ' created successfully.');
             return 0;
         } catch (Exception $e) {
             $this->error($e->getMessage());
@@ -94,5 +101,12 @@ class MakeDomainCommand extends Command
         }
 
         return true;
+    }
+
+    protected function getOptions()
+    {
+        return [
+            ['model', 'm', InputOption::VALUE_NONE, 'Create a model for the domain.']
+        ];
     }
 }
