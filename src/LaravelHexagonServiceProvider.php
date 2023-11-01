@@ -2,7 +2,6 @@
 
 namespace Doekos\LaravelHexagon;
 
-use Doekos\LaravelHexagon\Console\MakeModelCommand;
 use Illuminate\Support\ServiceProvider;
 use Doekos\LaravelHexagon\Console\MakeDomainCommand;
 

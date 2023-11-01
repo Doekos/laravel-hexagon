@@ -6,6 +6,9 @@ use Exception;
 
 class DomainHelper
 {
+    /**
+     * @throws Exception
+     */
     private function getAppDir(): string
     {
         for ($i = 1; $i <= 10; $i++) {

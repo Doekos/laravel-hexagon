@@ -5,7 +5,6 @@ namespace Doekos\LaravelHexagon\Console;
 use Doekos\LaravelHexagon\Handlers\WithDomain;
 use Exception;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
 
 class MakeDomainCommand extends Command
 {
