@@ -28,7 +28,6 @@ class LaravelHexagonServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 MakeDomainCommand::class,
-                MakeModelCommand::class,
             ]);
         }
 
