@@ -2,12 +2,15 @@
 
 namespace Doekos\LaravelHexagon\Console;
 
+use Doekos\LaravelHexagon\Handlers\WithDomain;
 use Exception;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 
 class MakeDomainCommand extends Command
 {
+    use WithDomain;
+
     protected $signature = 'hexagon:domain {domain}';
     protected $description = 'Creates a domain directory with subdirectories and files';
     protected function getStub(){}
@@ -17,96 +20,15 @@ class MakeDomainCommand extends Command
         try {
             $domainName = $this->argument('domain');
 
-            $domainsDir = $this->getDomainsDir();
+            $domainsDir = $this->helper()->getDomainsDir();
 
-            $this->makeNewDomainDir($domainName, $domainsDir);
+            $this->helper()->makeNewDomainDir($domainName, $domainsDir);
 
-            if ($this->option('model')) {
-                $this->call('hexagon:model', [
-                    'name' => $domainName,
-                    '--domain' => $domainName,
-                ]);
-            }
-
-            $this->info('Domain '. $domainName . ' created successfully.');
+            $this->output->success('Domain '. $domainName . ' created successfully.');
             return 0;
         } catch (Exception $e) {
             $this->error($e->getMessage());
             return 1;
         }
-    }
-
-    private function getAppDir(): string
-    {
-        for ($i = 1; $i <= 10; $i++) {
-            $appDir = dirname(__DIR__, $i) . '/app';
-
-            $appDirExists = file_exists($appDir);
-
-            if ($appDirExists) {
-                break;
-            }
-        }
-
-        if (!$appDirExists) {
-            throw new Exception('Could not find app directory! Command must be with in subdirectory of app');
-        }
-
-        return $appDir;
-    }
-
-    private function getDomainsDir(): string
-    {
-        $appDir = $this->getAppDir();
-
-        $domainDir = $appDir . '/Domain';
-        $domainDirExists = file_exists($domainDir);
-
-        if (!$domainDirExists) {
-            mkdir($domainDir);
-        }
-
-        return $domainDir;
-    }
-
-    /**
-     * @throws Exception
-     */
-    private function makeNewDomainDir(string $domain, string $domainsDir)
-    {
-        $newDomainDir = $domainsDir . '/' . $domain;
-        $alreadyExists = file_exists($newDomainDir);
-
-        if ($alreadyExists) {
-            throw new Exception($domain . ' domain already exists! Will not overwrite existing domain.');
-        }
-
-        mkdir($newDomainDir);
-
-        $folders = [
-            'Actions',
-            'Controllers',
-            'Events',
-            'Exceptions',
-            'Listeners',
-            'Models',
-            'Requests',
-            'routes',
-            'Rules',
-        ];
-
-        foreach ($folders as $folder) {
-            $newFolder = $newDomainDir . '/' . $folder;
-            mkdir($newFolder, 0777, true);
-        }
-
-        return true;
-    }
-
-    protected function getOptions()
-    {
-        return [
-            ['model', 'm', InputOption::VALUE_NONE, 'Create a model for the domain.']
-        ];
     }
 }
